@@ -1,5 +1,5 @@
 import "./App.css";
-
+import { VinylAmountProvider } from "./contexts/vinylAmountContext";
 import { VinylItem } from "./components/VinylItem";
 
 const data = [
@@ -23,18 +23,20 @@ const data = [
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>VinylStore</h2>
-        <div data-testid="app-container">
-          {data.map((item) => (
-            <div key={item.id}>
-              <VinylItem data={item} />
-            </div>
-          ))}
-        </div>
-      </header>
-    </div>
+    <VinylAmountProvider>
+      <div className="App">
+        <header className="App-header">
+          <h2>VinylStore</h2>
+          <div data-testid="app-container">
+            {data.map((item) => (
+              <div key={item.id}>
+                <VinylItem data={item} />
+              </div>
+            ))}
+          </div>
+        </header>
+      </div>
+    </VinylAmountProvider>
   );
 }
 

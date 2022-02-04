@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
+import { VinylAmountContext } from "../../contexts/vinylAmountContext";
 
 const Container = styled.div`
   display: flex;
@@ -59,13 +60,37 @@ const Button = styled.button`
 `;
 
 const VinylItem = ({ data }) => {
+  const { vinylsAdded, setVinylsAdded } = useContext(VinylAmountContext);
   const [amount, setAmount] = useState(0);
   const totalPrice = amount * data.price;
 
+  const vinyl = {
+    ...data,
+    amount: amount,
+    totalPrice: totalPrice,
+  };
+  let arrayOfVinyls = [...vinylsAdded];
+
   const handleIncreaseTheAmount = () => {
     setAmount(amount + 1);
-    console.log(data.id);
   };
+
+  useEffect(() => {
+    const alreadyInTheBag = vinylsAdded.some((element) => {
+      return element.id === data.id;
+    });
+
+    if (!alreadyInTheBag) {
+      arrayOfVinyls.push(vinyl);
+
+      setVinylsAdded(arrayOfVinyls);
+    } else {
+      const vinylIndex = vinylsAdded.findIndex((obj) => obj.id === data.id);
+      const updateArray = [...vinylsAdded];
+      updateArray[vinylIndex] = vinyl;
+      setVinylsAdded(updateArray);
+    }
+  }, [amount]);
 
   const handleDecreaseTheAmount = () => {
     setAmount(amount - 1);
