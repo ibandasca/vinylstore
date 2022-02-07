@@ -1,6 +1,13 @@
 import "./App.css";
+import styled from "styled-components";
 import { VinylAmountProvider } from "./contexts/vinylAmountContext";
 import { VinylItem } from "./components/VinylItem";
+import { Summary } from "./components/Summary";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
 const data = [
   {
@@ -27,13 +34,16 @@ function App() {
       <div className="App">
         <header className="App-header">
           <h2>VinylStore</h2>
-          <div data-testid="app-container">
-            {data.map((item) => (
-              <div key={item.id}>
-                <VinylItem data={item} />
-              </div>
-            ))}
-          </div>
+          <Container data-testid="app-container">
+            <div>
+              {data.map((item) => (
+                <div key={item.id}>
+                  <VinylItem data={item} />
+                </div>
+              ))}
+            </div>
+            <Summary />
+          </Container>
         </header>
       </div>
     </VinylAmountProvider>
