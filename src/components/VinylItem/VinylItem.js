@@ -97,7 +97,7 @@ const VinylItem = ({ data }) => {
   };
 
   return (
-    <Container>
+    <Container data-testid="item-container">
       <ImageContainer>
         <Image src={data.image} alt="vinyl-img" />
         <ImageText>
@@ -108,21 +108,30 @@ const VinylItem = ({ data }) => {
       <PriceContainer>
         <Section>
           <Title>Price</Title>
-          <Text>{`${data.price}$`}</Text>
+          <Text data-testid="price">{`${data.price}$`}</Text>
         </Section>
         <Section>
           <Title>Amount</Title>
           <ButtonContainer>
-            <Button onClick={handleDecreaseTheAmount} disabled={amount === 0}>
+            <Button
+              onClick={handleDecreaseTheAmount}
+              disabled={amount === 0}
+              data-testid="decrease-amount-button"
+            >
               {"<"}
             </Button>
-            <Text>{amount}</Text>
-            <Button onClick={handleIncreaseTheAmount}>{">"}</Button>
+            <Text data-testid="amount">{amount}</Text>
+            <Button
+              onClick={handleIncreaseTheAmount}
+              data-testid="increase-amount-button"
+            >
+              {">"}
+            </Button>
           </ButtonContainer>
         </Section>
         <Section>
           <Title>Total</Title>
-          <Text>{`${totalPrice}$`}</Text>
+          <Text data-testid="total-price">{`${totalPrice}$`}</Text>
         </Section>
       </PriceContainer>
     </Container>
